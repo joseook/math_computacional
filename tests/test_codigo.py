@@ -2,7 +2,7 @@ import unittest
 
 import pandas as pd
 
-from codigo import (
+from src.codigo import (
     calcular_estatisticas,
     calcular_outliers,
     filtrar_outliers,

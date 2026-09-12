@@ -1,41 +1,79 @@
 # Trabalho 2 — Matemática Computacional
 
-## Parte do José Paulo
+Análise estatística de uma base sintética de clientes (800 registros), com
+estatísticas descritivas, correlação, detecção de outliers pelo método IQR
+e visualização de dados.
 
-Este diretório contém o núcleo em Python/Pandas para:
+## Estrutura do projeto
 
-- leitura de CSV e XLSX;
-- tratamento de duplicatas e valores ausentes;
-- média, mediana, moda, amplitude e quartis;
-- desvio padrão, variância, correlação e IQR;
-- cálculo dos limites inferior/superior e filtragem de outliers pelo IQR.
+```
+math_computacional/
+├── src/
+│   ├── codigo.py        # leitura, tratamento, estatísticas, correlação e IQR
+│   └── graficos.py       # visualização (barras, pizza, boxplot, heatmap)
+├── data/
+│   └── dados_sinteticos.csv
+├── outputs/
+│   └── graficos/          # PNGs gerados por graficos.py (300 dpi)
+├── tests/
+│   └── test_codigo.py
+├── requirements.txt
+└── README.md
+```
 
-A base `dados_sinteticos.csv` tem 800 registros e foi gerada de forma reprodutível,
-com três registros extremos intencionais para a demonstração do módulo de outliers.
+## Divisão do grupo
+
+- **José Paulo** — leitura da base, tratamento, estatísticas obrigatórias,
+  métricas extras, correlação, IQR e módulo automático de outliers
+  (`src/codigo.py`).
+- **Victor Seixas** — visualização dos dados com Matplotlib e Seaborn
+  (`src/graficos.py`).
+- **Ana Clara** — coleta/contextualização dos dados, dicionário de dados e
+  construção dos slides.
+- **José Iderlan** — análise crítica, interpretação dos resultados e
+  redação do relatório em PDF.
 
 ## Como executar
 
 ```bash
 python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
-.venv/bin/python codigo.py
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
-Para validar as funções:
+Estatísticas, correlação e outliers (José Paulo):
 
 ```bash
-.venv/bin/python -m unittest discover -v
+python -m src.codigo
 ```
 
-O módulo pode ser importado pelo restante do grupo:
+Gráficos para relatório e slides (Victor Seixas):
+
+```bash
+python -m src.graficos
+```
+
+Os PNGs são gerados em `outputs/graficos/`.
+
+Testes:
+
+```bash
+python -m unittest discover -v
+```
+
+## Uso programático
 
 ```python
-from codigo import executar_analise
+from src.codigo import executar_analise
 
-resultado = executar_analise("dados_sinteticos.csv")
+resultado = executar_analise("data/dados_sinteticos.csv")
 print(resultado["estatisticas"])
 print(resultado["outliers"])
 ```
 
 As chaves retornadas são `dados_brutos`, `dados_tratados`, `estatisticas`,
 `outliers`, `correlacao` e `dados_filtrados`.
+
+A base `data/dados_sinteticos.csv` tem 800 registros e foi gerada de forma
+reprodutível, com três registros extremos intencionais para a demonstração
+do módulo de outliers.

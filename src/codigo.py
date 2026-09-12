@@ -198,7 +198,7 @@ def gerar_dados_sinteticos(
 
 def main() -> None:
     """Executa uma análise local e imprime os resultados principais."""
-    base = Path(__file__).with_name("dados_sinteticos.csv")
+    base = Path(__file__).resolve().parent.parent / "data" / "dados_sinteticos.csv"
     resultados = executar_analise(base)
     print(f"Registros brutos: {len(resultados['dados_brutos'])}")
     print(f"Registros após tratamento: {len(resultados['dados_tratados'])}")
